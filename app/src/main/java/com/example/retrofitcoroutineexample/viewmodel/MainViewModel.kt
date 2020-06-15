@@ -2,14 +2,14 @@ package com.example.retrofitcoroutineexample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.retrofitcoroutineexample.model.Model
 import com.example.retrofitcoroutineexample.retrofit.API
 import com.example.retrofitcoroutineexample.retrofit.CryptoClient
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.ArrayList
+import java.util.*
 
 
 /**     Code with ❤
@@ -29,7 +29,7 @@ class MainViewModel : ViewModel() {
 
     fun getCryptoModels(): MutableLiveData<ArrayList<Model>> {
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
 
             val response = retrofit?.getData()
 
@@ -44,6 +44,7 @@ class MainViewModel : ViewModel() {
                 }
             }
         }
+
         return cryptoData
     }
 }
